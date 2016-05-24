@@ -1,0 +1,22 @@
+/**
+ * External font path
+ */
+$icon-font-path: "../bower_components/bootstrap-sass/assets/fonts/bootstrap/";
+$fa-font-path: "../bower_components/fontawesome/fonts";
+/**
+ * External Plugins [Bower Components]
+ */
+@import "compass/css3";
+// @import "bootstrap-sass/assets/stylesheets/_bootstrap";
+@import "fontawesome/scss/font-awesome";
+/**
+ * Modules
+ */
+@import
+"header/header",
+"admin/admin",
+"assignment/assignment"
+;
+
+
+

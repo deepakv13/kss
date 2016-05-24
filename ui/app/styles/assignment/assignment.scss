@@ -1,0 +1,91 @@
+.details-container {
+		width: 296px;
+		float: left;
+        margin-right: 30px;
+        margin-bottom: 18px;
+	}
+	.details-container .panel {
+		border: none;
+		margin-bottom: 0px;
+	}
+	.details-container .panel .head-custom {
+		height: 26px;
+		padding: 3px 9px;
+		text-transform: uppercase;
+		color: #ffffff !important;
+	}
+	.details-container .panel .red {
+		background-color: #ca202c ;
+	}
+	.details-container .panel .darkblue {
+		background-color: #506e80 ;
+	}
+	.details-container .panel .panel-body {
+		font-size: 18px;
+	}
+	.details-container .panel .panel-body .description {
+		font-size: 16px;
+	}
+	.details-container .panel-heading {
+		border-bottom:none;
+		border-top-left-radius: 6px;
+		border-top-right-radius: 6px;
+	}
+	.details-container .panel-body {
+		height: 230px;
+		border: 2px solid #c0c2c4;
+		border-top: none;
+		border-bottom-left-radius: 6px;
+		border-bottom-right-radius: 6px;
+	}
+	.details-container .panel-body .title-name{
+		float: left;
+    display: block;
+    width: 100%;
+	}
+	.details-container  .panel-body .description{
+		    font-size: 16px;
+    margin-top: 80px;
+    display: block;
+	}
+	.create-new-report-container{
+		width: 296px;
+		float: left;
+		margin-right: 30px;
+		margin-bottom: 18px;
+	}
+	.create-new-report-container .panel {
+		border: 3px dashed #ca202c;
+		border-radius: 6px;
+		margin-bottom: 0px;
+	}
+	.create-new-report-container .panel-body {
+		height: 250px;
+		 display: table;
+    width: 100%;
+	}
+	.create-new-report-container .panel .panel-body .description {
+		font-size: 16px;
+		text-align: center;
+		display: table-cell;
+		vertical-align: middle;
+	}
+	.create-new-report-container .panel .panel-body .description a{
+		font-size: 24px;
+		text-align: center;
+		color:#c84f2e;
+		font-weight: bold;
+		text-decoration: none;
+		line-height: 25px;
+	}
+	.plus-symbol{
+		font-size: 48px;
+		line-height: 0px;
+	}
+	.highlight .assignmentPanel-grid{
+    /*border: 1px solid blue;*/
+    margin: auto;
+    width: 948px;
+    align-items: center;
+    display: block;
+}
