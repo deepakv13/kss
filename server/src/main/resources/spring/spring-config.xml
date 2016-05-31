@@ -15,4 +15,32 @@
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler />
 	
+	<bean id="propertyBag" class="com.kss.utils.PropertyBag"/>
+
+    <bean id="oracleDataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="username" value="${db.oracle.username}" />
+		<property name="password" value="${db.oracle.password}" />
+		<property name="url" value="${db.oracle.url}" />
+		<property name="driverClassName" value="${db.oracle.driverClassName}" />
+	</bean>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="oracleDataSource"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <property name="jpaProperties">
+            <map>
+                <entry key="hibernate.show_sql" value="true"/>
+            </map>
+        </property>
+        <property name="packagesToScan" value="com.kss"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"/>
+
+    <context:component-scan base-package="com.kss"/>
+	
 </beans>

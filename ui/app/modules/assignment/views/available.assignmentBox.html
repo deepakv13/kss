@@ -1,9 +1,18 @@
-		<div class="details-container">
-			<div class="panel panel-default">
-				<div class="panel-heading head-custom red">{{assignment.status}}</div>
-				<div class="panel-body">
+<div class="details-container">
+	<div class="panel panel-default">
+		<a ui-sref="edit-assignment" ng-click="setAssignment()">
+			<div class="panel-heading head-custom">
+				<div class="details-date">May 24 2016</div>
+			</div>
+			<div class="panel-body">
+				<span class="status">{{assignment.status}}</span>
 				<span class="title-name">{{assignment.name}}</span>
-					<span class="description">{{assignment.desc}}</span>
+				<span class="description">{{assignment.desc}}</span>
+				<div class="notification">
+					<img src="images/alert.png">
+					<span class="message">some text here</span>
 				</div>
 			</div>
-		</div>	
+		</a>
+	</div>
+</div>

@@ -1,4 +1,6 @@
-var assignmentModule = angular.module('assignmentModule', ['headerModule',
+var assignmentModule = angular.module('assignmentModule', [	'ui.grid',
+															'headerModule',
 														   'assignmentDirectiveModule',
 														   'assignmentControllerModule',
-														   'assignmentServiceModule']); 
+														   'assignmentServiceModule',
+														   'sharedModule']); 

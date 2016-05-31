@@ -1,15 +1,29 @@
-var assignmentServices = angular.module('assignmentServiceModule', []);
+var assignmentServices = angular.module('assignmentServiceModule', ['ngResource']);
 
-assignmentServices.service('AssignmentService', [function() {
+assignmentServices.service('AssignmentService', ['$resource', 'APP_SERVICES_URL', function($resource, APP_SERVICES_URL) {
+		var assignmentUrl = APP_SERVICES_URL.ASSIGNMENT;
+		var newAssignment;
 
 		this.getAllAssignments = function(success, failure) {
+			var allAssignments = $resource(assignmentUrl);
+			allAssignments.query({}, success, failure);
+		};
 
-			var assignment1 = new Assignment("First Assignment", "This is first assignment", "SUBMITTED", "DV20572");
-			var assignment2 = new Assignment("Second Assignment", "This is second assignment", "SUBMITTED", "GP16816");
-			var assignment3 = new Assignment("Third Assignment", "This is third assignment", "SUBMITTED", "RV05411");
+		this.saveAssignment = function(assignment, success, failure) {
+			var assignmentResource = $resource(assignmentUrl);
+			assignmentResource.save({}, assignment, success, failure);
+		};
 
-			var allAssignments = [assignment1, assignment2, assignment3];
-			success(allAssignments);
+		this.setNewAssignment = function(assignment) {
+			newAssignment = assignment;
+		};
+
+		this.getNewAssignment = function() {
+			return newAssignment;
+		};
+
+		this.resetNewAssignment = function() {
+			newAssignment = '';
 		};
 	
 }]);

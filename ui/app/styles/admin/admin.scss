@@ -1,10 +1,111 @@
-.middle {
-	 min-height: 84%;
-	 border: 1px solid #666666;
+body {
+	background-color: #E3E3E3;
+	.container {
+		width: 1220px;
+	}
 }
-
-.highlight {
-	  border: 1px solid red;
-	  margin: 0;
-      padding: 18px;
+.assignmentPanel-heading {
+	font-size: 28px;
+	color: #000000;
+	padding: 20px 0 15px;
+	float: left;
+	width: 100%;
+}
+.top-border {
+	border-top: 1px solid #d8dbde;
+	padding-top: 30px;
+	background-color: #f6f6f6;
+	.middle {
+		min-height: calc(100vh - 212px);
+		//box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+		// border: 1px solid #666666;
+		//background: #f6f6f6;
+		float: left;
+		width: 100%;
+		padding: 0px;
+		.highlight {
+			// border: 1px solid red;
+			margin: 0;
+			.assignmentPanel-grid {
+				/*border: 1px solid blue;*/
+				margin: auto;
+				align-items: center;
+				display: block;
+			}
+			div {
+				div {
+					textarea.form-control {
+						border-radius: 0px;
+						outline: 0;
+					}
+				}
+			}
+			.dropdown {
+				.form-group {
+					.form-control {
+						border-radius: 0px;
+						outline: 0;
+					}
+				}
+				&.align-pad-left {
+					padding-right: 10px;
+					padding-left: 0px;
+				}
+				&.align-pad-right {
+					padding-right: 0px;
+					padding-left: 10px;
+				}
+			}
+			assignment-item-option {
+				background-color: red;
+				.form-control {
+					border-radius: 0px;
+					outline: 0;
+				}
+				div {
+					&.align-pad-left {
+						padding-right: 10px;
+						padding-left: 0px;
+						margin-bottom: 10px;
+					}
+					&.align-pad-right {
+						padding-right: 0px;
+						padding-left: 10px;
+						margin-bottom: 10px;
+					}
+				}
+			}
+		}
+		.form-group {
+			input {
+				border-radius: 0px;
+				outline: 0;
+			}
+		}
+		.btn {
+			color: #ffffff;
+			border-radius: 0px;
+			outline: 0;
+		}
+		.submit {
+			background-color: #05a9e3;
+			font-weight: bold;
+			color: #ffffff;
+			border: 0px;
+			border-radius: 0px;
+		}
+		.cancel {
+			background-color: #3c4b59;
+			font-weight: bold;
+			color: #ffffff;
+			border: 0px;
+			border-radius: 0px;
+		}
+	}
+	.bg-white {
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+		padding: 30px;
+		background-color: #ffffff;
+		margin-bottom: 30px;
+	}
 }

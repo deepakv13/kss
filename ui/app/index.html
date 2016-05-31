@@ -1,4 +1,4 @@
-<html lang="en" ng-app="etsKssApp">
+<html lang="en" ng-app="kssApp">
   <head>
     <title>Knowledge Sharing</title>
 
@@ -24,6 +24,7 @@
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/isteven-angular-multiselect/isteven-multi-select.js"></script>
   <script src="bower_components/angular-ui-grid/ui-grid.js"></script>
@@ -66,6 +67,9 @@
     <!-- Start: header module -->
     <script src="modules/header/header.module.js"></script>    
     <!-- End: header module -->
+    <!-- Start: shared module -->
+    <script src="modules/shared/shared.module.js"></script>    
+     <!-- End: shared module -->    
     <!-- Start: admin module -->
     <script src="modules/admin/admin.module.js"></script>    
     <script src="modules/admin/js/admin.controllers.js"></script>   
@@ -81,13 +85,8 @@
   </head>
 
   <body>
-        <div class="container">
-          
-
-                
+        <div class="container-fluid" style="padding: 0px;">
                 <ui-view></ui-view>
-
-  
         </div>
   </body>
 </html>
