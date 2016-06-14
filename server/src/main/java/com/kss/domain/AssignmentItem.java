@@ -25,12 +25,12 @@ import javax.persistence.TemporalType;
 import org.codehaus.jackson.annotate.JsonIgnore;
 @Entity
 @Table(name = "KSS_ASSIGNMENT_ITEM")
-@IdClass(value = AssignmentItem.AssignemtItemKey.class)
+@IdClass(value = AssignmentItem.AssignmentItemKey.class)
 public class AssignmentItem {
 
-	static class AssignemtItemKey implements Serializable {
-		Integer id;
+	static class AssignmentItemKey implements Serializable{
 		Assignment assignment;
+		Integer id;
 
 		public Integer getId() {
 			return id;
@@ -47,18 +47,17 @@ public class AssignmentItem {
 		public void setAssignment(Assignment assignment) {
 			this.assignment = assignment;
 		}
-
 	}
-
-	@Id
-	@Column(name = "ITEM_ID")
-	private Integer id;
-
+	
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ASSIGNMENT_ID")
 	@Id
 	private Assignment assignment;
+
+	@Id
+	@Column(name = "ITEM_ID")
+	private Integer id;
 
 	@Column(name = "ITEM_DESC")
 	private String desc;
@@ -75,10 +74,14 @@ public class AssignmentItem {
 
 	@Column(name = "WEIGHTAGE")
 	private Integer weightage;
+	
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "assignmentItem")
+	private Set<UserAssignmentItem> userAssignmentItems = new HashSet<UserAssignmentItem>(0);
 
-	@OneToMany(mappedBy = "assignmentItem", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-	private Set<ItemChoice> itemChoices;
-
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "assignmentItem")
+	private Set<ItemChoice> itemChoices = new HashSet<ItemChoice>(0);
+	
 	public Integer getId() {
 		return id;
 	}
@@ -135,6 +138,14 @@ public class AssignmentItem {
 	public void setWeightage(Integer weightage) {
 		this.weightage = weightage;
 	}	
+	
+	public Set<UserAssignmentItem> getUserAssignmentItems() {
+		return userAssignmentItems;
+	}
+
+	public void setUserAssignmentItems(Set<UserAssignmentItem> userAssignmentItems) {
+		this.userAssignmentItems = userAssignmentItems;
+	}
 
 	public Set<ItemChoice> getItemChoices() {
 		return itemChoices;
@@ -162,4 +173,5 @@ public class AssignmentItem {
 		}
 		this.itemChoices = itemChoices;
 	}
+	
 }

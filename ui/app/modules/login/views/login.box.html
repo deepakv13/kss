@@ -1,0 +1,16 @@
+<div>
+	<!-- <h1 class="text-center">Login</h1> -->
+	<form class="form-group form col-md-12 center-block" ng-submit="login()">
+		<select class="form-control " ng-model="userType" ng-options="x for x in userTypes"></select>
+		<div ng-show="(userType === 'ADMIN' || userType === 'USER' ? true : false)" class="form-group">
+			<input type="text" id="soeId" ng-model="soeId" class="form-control input-lg" placeholder="Enter your SOE ID here...">
+		</div>
+		<div ng-show="(userType === 'ADMIN' ? true : false)" class="form-group">
+            <input type="password" id="password" ng-model="password" class="form-control input-lg" placeholder="Password">
+        </div>
+		<div ng-show="(userType === 'ADMIN' || userType === 'USER' ? true : false)" class="form-group">
+			<input type="submit" value = "Sign In" class="btn btn-primary btn-lg btn-block">
+		</div>
+	</form>
+	<div class="loginResult">{{loginResult}}</div>
+</div>

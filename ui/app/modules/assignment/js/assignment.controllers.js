@@ -30,6 +30,18 @@ assignmentControllers.controller('AssignmentCntrl', ['$scope', 'AssignmentServic
 		AssignmentService.getAllAssignments(success, failure);
 	}
 
+	$scope.publishAssignment = function() {
+		var success = function(assignment) {
+			$scope.newAssignment = assignment;
+		};
+
+		var failure = function() {
+			alert('problem occurred in publishing the assignment');
+		};
+
+		AssignmentService.publishAssignment($scope.newAssignment, success, failure);
+	}
+
 	$scope.getNewAssignment = function() {
 		$scope.newAssignment = AssignmentService.getNewAssignment();
 	}
@@ -39,26 +51,30 @@ assignmentControllers.controller('AssignmentCntrl', ['$scope', 'AssignmentServic
 		AssignmentService.setNewAssignment(selectedAssignment);
 	}
 
-	$scope.getTotalWeightage = function() {
-		var totalWeightage = 0;
-		angular.forEach($scope.newAssignment.assignmentItems, function(item, index){
-			totalWeightage += item.weightage;
-		});
-		return totalWeightage;
-	}
+	// $scope.getTotalWeightage = function() {
+	// 	var totalWeightage = 0;
+	// 	angular.forEach($scope.newAssignment.assignmentItems, function(item, index){
+	// 		totalWeightage += item.weightage;
+	// 	});
+	// 	return totalWeightage;
+	// }
 
 
 }]);
 
 assignmentControllers.controller('AssignmentItemCntrl', ['$scope', 'AssignmentService', 'uiGridConstants', function($scope, AssignmentService, uiGridConstants){
-	$scope.assignmentItem = new AssignmentItem();
-
+	$scope.assignmentItem = AssignmentService.getCurrentAssignmentItem();
+	$scope.itemWeightOptions = [1,2,3,4,5,6,7,8,9,10];
+	
 	//TODO: We should not send/receive the full Assignment object from UI to/from server
 	$scope.saveAssignmentItem = function() {
-		AssignmentService.getNewAssignment().assignmentItems.push($scope.assignmentItem);
+		if ($scope.assignmentItem.item.id == "") {
+			AssignmentService.getNewAssignment().assignmentItems.push($scope.assignmentItem.item);	
+		}
 		var success = function(assignment) {
 			AssignmentService.setNewAssignment(assignment);
-			$scope.assignmentItem = new AssignmentItem();
+			var newAssignmentItem = new AssignmentItem();
+			AssignmentService.setCurrentAssignmentItem(newAssignmentItem);
 		};
 
 		var failure = function() {
@@ -67,61 +83,83 @@ assignmentControllers.controller('AssignmentItemCntrl', ['$scope', 'AssignmentSe
 		AssignmentService.saveAssignment(AssignmentService.getNewAssignment(), success, failure);
 	}
 
-	$scope.createChoices = function() {
-		var totalSelectedChoices = parseInt($scope.assignmentItem.noOfChoices);
-		var currentChoices = parseInt($scope.assignmentItem.itemChoices.length);
 
-         for(var i = 0; i < (totalSelectedChoices - currentChoices); i++){
-         	$scope.assignmentItem.itemChoices.push(new ItemChoice());
-        }
+	$scope.createChoice = function() {
+	    $scope.assignmentItem.item.itemChoices.push(new ItemChoice());
 	}
 
-	$scope.getAssignmentItemsForGrid = function() {
-		$scope.assignment.assignmentItems.push($scope.assignmentItem);
-		var success = function() {
-			// add the saved item into list
+	$scope.deleteAssignmentItem = function() {
+		if ($scope.assignmentItem.item.id == "") {
+			$scope.assignmentItem.item.reset();
+		}
+		else {
+			var currentAssignmentItems = AssignmentService.getNewAssignment().assignmentItems;	
+			for (var itemIndex in currentAssignmentItems) {
+				if (currentAssignmentItems[itemIndex].id == $scope.assignmentItem.item.id) {
+					currentAssignmentItems.splice(itemIndex, 1);
+					break;
+				}
+			}
+		}
+		var success = function(assignment) {
+			AssignmentService.setNewAssignment(assignment);
+			var newAssignmentItem = new AssignmentItem();
+			AssignmentService.setCurrentAssignmentItem(newAssignmentItem);
 		};
 
 		var failure = function() {
 			alert('problem occurred in saving assignment item');
 		};
-		AssignmentService.saveAssignment($scope.assignment, success, failure);
+		AssignmentService.saveAssignment(AssignmentService.getNewAssignment(), success, failure);
 	}
+
+
 }]);
 
-assignmentControllers.controller('AssignmentItemListCntrl', ['$scope', 'AssignmentService', 'uiGridConstants', function($scope, AssignmentService, uiGridConstants){
+assignmentControllers.controller('AssignmentItemListCntrl', ['$scope', '$http','AssignmentService', 'uiGridConstants', function($scope, $http, AssignmentService, uiGridConstants){
+	$scope.assignmentItem = new AssignmentItem();
+
+
+
   $scope.gridOptions = {
   enableFiltering: true,
+  enablePaginationControls: false,
+  showGridFooter: true,
+  gridFooterTemplate: "<div class='foot'><span class='foot-total-items'></span><span ng-bind='grid.options.getTotalWeightage()' class='foot-weightage'></span></div>",
   columnDefs: [
-      // {
-      //   name: 'Items',
-      //   field: 'selected',
-      //   filter: {
-      //     type: uiGridConstants.filter.SELECT,
-      //     selectOptions: [
-      //       {value: false, label: 'Unselect'},
-      //       {value: true, label: 'Selected'}
-      //     ]
-      //   },
-      //   cellTemplate: '<input type="checkbox" name="select_item" value="true" ng-model="row.entity.selected"/>'
-      // },
+    
       {
         name: 'Description',
-        field: 'desc'
+        field: 'desc',
+        cellTemplate: '<div class="ui-grid-cell-contents grid-status-content" ng-click="doAlert();" ng-init="showToolTip=false;" ng-mouseenter="showToolTip = true" ng-mouseleave="showToolTip = false" ng-bind-html="row.entity[col.field]">{{row.entity[col.field]}}<div ng-if="row.entity[col.field]" ng-show="showToolTip" class="grid-tooltip">{{row.entity[col.field]}}</div></div>',
+        cellClass: 'cellToolTip'
       },
       {
         name: 'Weightage',
-        field: 'weightage'
+        field: 'weightage',
+        width:'100'
       }
     ]
   };
 
-  // $scope.gridOptions.data = [
-  //   { name: 'User 1', age: 20,selected:false},
-  //   { name: 'User 2', age: 30,selected:false},
-  //   { name: 'User 3', age: 40,selected:false}
-  // ];
-  
+	var prevRow;
+	var currentRow;
+  $scope.gridOptions.onRegisterApi = function( gridApi ) {
+	    $scope.gridApi = gridApi;
+	    gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+	    	prevRow = currentRow;
+	    	currentRow = row;
+	    	if (prevRow != null) {
+	    		prevRow.isSelected = false;
+	    	}
+		    var item = row.entity;
+		    AssignmentService.setCurrentAssignmentItem(item);
+	  	});
+  };
+
+  	$scope.gridOptions.getTotalWeightage = function() {
+  		console.log('came here');
+	}
+
   $scope.gridOptions.data = AssignmentService.getNewAssignment().assignmentItems;
-	
 }])

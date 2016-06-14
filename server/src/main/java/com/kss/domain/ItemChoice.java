@@ -32,8 +32,6 @@ public class ItemChoice {
 			this.id = id;
 		}
 
-		
-
 		public AssignmentItem getAssignmentItem() {
 			return assignmentItem;
 		}
@@ -52,13 +50,12 @@ public class ItemChoice {
 	private String desc;
 
 	@Column(name = "IS_CORRECT")
-	private boolean isCorrect;
+	private String isCorrect;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({
 		@JoinColumn(name = "ASSIGNMENT_ID"),
 		@JoinColumn(name = "ITEM_ID")
-		
 	})
 	@Id
 	@JsonIgnore
@@ -91,12 +88,11 @@ public class ItemChoice {
 		this.desc = desc;
 	}
 
-	public Boolean getIsCorrect() {
+	public String getIsCorrect() {
 		return isCorrect;
 	}
 
-	public void setIsCorrect(Boolean isCorrect) {
+	public void setIsCorrect(String isCorrect) {
 		this.isCorrect = isCorrect;
 	}
-
 }

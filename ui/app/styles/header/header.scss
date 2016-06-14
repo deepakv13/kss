@@ -31,10 +31,11 @@
 					}
 				}
 				&.navbar-right {
+					    min-height: 25px;
 					margin-right: 0px;
 					.dropdown {
 						a {
-							background-color: #05a9e3;
+							//background-color: #05a9e3;
 							.security {
 								float: left;
 								padding: 3px 4px 0px 0px;

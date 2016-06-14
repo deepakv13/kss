@@ -1,0 +1,9 @@
+<div>
+	<div ng-repeat="(key, value) in assignment.assignmentItems">
+		<div class="questionary" ng-show="showCurrentQues(key)">
+			<assignment-header current-item-num="{{key + 1}}" items="assignment.assignmentItems"></assignment-header>
+			<assignment-item item="assignment.assignmentItems[key]" save-assignment-item-answer="saveAssignmentItemAnswer(itemAnswer, currentAssignmentItemKey)"></assignment-item>		
+			<assignment-footer current-assignment-item-key="{{key}}" enable-prev="enablePrev(key)" enable-next="enableNext(key)" enable-submit="enableSubmit(key)" show-prev-assignment-item="showPrevAssignmentItem(currentAssignmentItemKey)" show-next-assignment-item="showNextAssignmentItem(currentAssignmentItemKey)"></assignment-footer>	
+		</div>
+	</div>
+</div>

@@ -1,0 +1,26 @@
+<div  ng-init="getUserAssignments('AM35181')">
+<div>
+	<span class="assignmentPanel-heading">Assignments Taken</span>
+	<div class="assignments-container ">
+		<div class="align-middle">
+			<div class="assignment-row" >
+				<div ng-repeat="userassignment in userAssignments.attended">
+					<userassignment-assignment-box userassignment="userassignment"></userassignment-assignment-box>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div >
+<span class="assignmentPanel-heading">Assignments Available</span>
+	<div class="assignments-container ">
+		<div class="align-middle">
+			<div class="assignment-row" >
+				<div ng-repeat="userassignment in userAssignments.available">
+					<userassignment-assignment-box userassignment="userassignment"></userassignment-assignment-box>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

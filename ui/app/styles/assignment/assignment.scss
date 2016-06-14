@@ -1,10 +1,33 @@
 @import "grid";
 
+.ta-root {
+	min-height: 300px;
+	height: auto;
+	overflow: auto;
+	font-family: inherit;
+	font-size: 100%;
+
+	.btn-toolbar {
+		.btn-group {
+			padding: 0px;
+
+			&:last-child {
+				//padding: 9px;
+			}
+			#toolbarWC {
+				padding: 3px;
+			}
+			#toolbarCC {
+				padding: 3px;
+			}
+		}
+	}
+}
 .details-container {
-	width: 268px;
-	height: 268px;
+	width: 210px;
+	height: 230px;
 	float: left;
-	margin-right: 30px;
+	margin-right: 28px;
 	margin-bottom: 30px;
 	border-left: 7px solid #e65d5d;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -48,18 +71,18 @@
 
 			.description {
 				font-size: 16px;
-				margin-top: 80px;
+				margin-top: 48px;
 				display: block;
 			}
 			.title-name {
 				float: left;
 				display: block;
 				width: 100%;
-				font-size: 20px;
+				font-size: 18px;
 			}
 			.status {
 				text-transform: initial;
-				font-size: 14px;
+				font-size: 12px;
 			}
 			.notification {
 				font-size: 11px;
@@ -77,18 +100,22 @@
 				}
 				.message {
 					float: left;
-					width: 192px;
+					width: 164px;
 					line-height: 12px;
+					    font-size: 13px;
 				}
 			}
 		}
 	}
+	&.published {
+		border-left: 7px solid #03A9F4;
+	}
 }
 .create-new-report-container {
-	width: 268px;
-	height: 268px;
+	width: 210px;
+	height: 230px;
 	float: left;
-	margin-right: 30px;
+	margin-right: 28px;
 	margin-bottom: 30px;
 	border-left: 7px solid #7dc692;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -136,15 +163,6 @@
 		}
 	}
 }
-.grid {
-	width: 100%;
-	height: auto !important;
-	margin-right: 20px;
-	border:1px solid #E3E3E3 !important;
-	.ui-grid-header {
-		height: 32px;
-	}
-}
 .onoffswitch {
 	position: relative;
 	width: 100%;
@@ -181,19 +199,41 @@
 	font-weight: bold;
 	box-sizing: border-box;
 }
-.onoffswitch-inner:after {
-	content: "Correct";
-	// padding-left: 8px;
+.onoffswitch{
+	cursor: pointer;
+	 .correct {
+	display: block;
+	float: left;
+	width: 100%;
+	height: 34px;
+	padding: 0;
+	line-height: 34px;
+	font-size: 14px;
+	font-family: Trebuchet, Arial, sans-serif;
+	font-weight: bold;
+	box-sizing: border-box;
 	background-color: #5bb75b;
 	color: #FFFFFF;
 	text-align: center;
 }
-.onoffswitch-inner:before {
-	content: "Incodvdvfdfrrect";
-	// padding-right: 5px;
+.incorrect {
+	display: block;
+	float: left;
+	width: 100%;
+	height: 34px;
+	padding: 0;
+	line-height: 34px;
+	font-size: 14px;
 	background-color: #EEEEEE;
 	color: #3C4B59;
 	text-align: center;
+	font-family: Trebuchet, Arial, sans-serif;
+	font-weight: bold;
+	box-sizing: border-box;
+}
+}
+.onoffswitch{
+	 
 }
 .onoffswitch-switch {
 	display: block;
@@ -214,4 +254,20 @@
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
 	right: 0px;
+}
+.assignments-container {
+	min-height: calc(50vh - 140px);
+	display: table;
+	width: 100%;
+	padding: 0px;
+
+	.align-middle {
+		display: table-cell;
+		vertical-align: middle;
+
+		.assignment-row {
+			/*height: 240px;
+			overflow-y: scroll;*/
+		}
+	}
 }

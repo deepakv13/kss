@@ -11,6 +11,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +28,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @Entity
 @Table(name = "KSS_ASSIGNMENT")
 public class Assignment {
-
+	
 	@Id
 	@Column(name = "ASSIGNMENT_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "assignemt_id_seq")
@@ -40,28 +42,45 @@ public class Assignment {
 	private String desc;
 
 	@Column(name = "STATUS")
-	private String status;
+	@Enumerated(EnumType.STRING)
+	private AssignmentStatus status;
 
 	@Column(name = "OWNER")
 	private String owner;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "CREATED_AT")
-	private Date createdAt;
-
-	@OneToMany(mappedBy = "assignment", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-	private Set<AssignmentItem> assignmentItems;
-
+	@Column(name = "MODIFIED_AT")
+	private Date modifiedAt;
+	
+	@JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "assignment")
+	private Set<UserAssignment> userAssignments = new HashSet<UserAssignment>(0);
+	
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "assignment")
+	private Set<AssignmentItem> assignmentItems = new HashSet<AssignmentItem>(0);
+	
 	public Assignment() {
 	}
 
-	public Assignment(String name, String desc, String status, String owner) {
+	public Assignment(String name, String desc, AssignmentStatus status, String owner) {
 		super();
 		this.name = name;
 		this.desc = desc;
 		this.status = status;
 		this.owner = owner;
-		this.createdAt = new Date();
+		this.modifiedAt = new Date();
+	}
+	
+	public Set<UserAssignment> getUserAssignments() {
+		return userAssignments;
+	}
+
+	public void setUserAssignments(Set<UserAssignment> userAssignments) {
+		this.userAssignments = userAssignments;
+	}
+
+	public Assignment(Integer id) {
+		this.id = id;
 	}
 
 	public Integer getId() {
@@ -88,11 +107,11 @@ public class Assignment {
 		this.desc = desc;
 	}
 
-	public String getStatus() {
+	public AssignmentStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(AssignmentStatus status) {
 		this.status = status;
 	}
 
@@ -104,12 +123,12 @@ public class Assignment {
 		this.owner = owner;
 	}
 
-	public Date getCreatedAt() {
-		return createdAt;
+	public Date getModifiedAt() {
+		return modifiedAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
+	public void setModifiedAt(Date modifiedAt) {
+		this.modifiedAt = modifiedAt;
 	}
 
 	public Set<AssignmentItem> getAssignmentItems() {
@@ -132,7 +151,8 @@ public class Assignment {
 		for(int i = 0; i < assignmentItemList.size(); i++){
 			AssignmentItem item = assignmentItemList.get(i);
 			if (item.getId() == null) {
-				item.setId(i+1);	
+				item.setId(i+1);
+				item.setCreatedAt(new Date());
 			}
 			item.setAssignment(this);
 		}
@@ -144,7 +164,4 @@ public class Assignment {
 		item.setAssignment(this);
 		this.assignmentItems.add(item);
 	}
-		
-	
-
 }

@@ -1,4 +1,4 @@
-package com.kss.dao;
+package com.kss.dao.impl;
 
 import java.util.Collection;
 import java.util.List;
@@ -8,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.kss.domain.Assignment;
 
@@ -49,7 +48,4 @@ public class AssignmentDaoImpl  {
 		Assignment assignment = getAssignment(assignmentId);
 		em.remove(assignment);
 	}
-
-	
-	
 }

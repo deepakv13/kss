@@ -1,5 +1,6 @@
 body {
 	background-color: #E3E3E3;
+
 	.container {
 		width: 1220px;
 	}
@@ -10,11 +11,25 @@ body {
 	padding: 20px 0 15px;
 	float: left;
 	width: 100%;
+
+	.submit {
+		background-color: #05a9e3;
+		font-weight: bold;
+		color: #ffffff;
+		border: 0px;
+		border-radius: 0px;
+		display: block;
+		min-width: 106px;
+		height: 34px;
+		padding: 6px 12px;
+		font-size: 14px;
+	}
 }
 .top-border {
 	border-top: 1px solid #d8dbde;
 	padding-top: 30px;
 	background-color: #f6f6f6;
+
 	.middle {
 		min-height: calc(100vh - 212px);
 		//box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -23,10 +38,20 @@ body {
 		float: left;
 		width: 100%;
 		padding: 0px;
-		.highlight {
-			// border: 1px solid red;
+
+		.highlight {		
 			margin: 0;
+			.item-count{
+				    margin-bottom: 5px;
+    font-weight: bold;
+			}
+			.weightage{
+				    margin-bottom: 5px;
+    font-weight: bold;
+			}
+
 			.assignmentPanel-grid {
+
 				/*border: 1px solid blue;*/
 				margin: auto;
 				align-items: center;
@@ -58,6 +83,7 @@ body {
 			}
 			assignment-item-option {
 				background-color: red;
+
 				.form-control {
 					border-radius: 0px;
 					outline: 0;
@@ -83,7 +109,7 @@ body {
 			}
 		}
 		.btn {
-			color: #ffffff;
+			//color: #ffffff;
 			border-radius: 0px;
 			outline: 0;
 		}
@@ -107,5 +133,19 @@ body {
 		padding: 30px;
 		background-color: #ffffff;
 		margin-bottom: 30px;
+		position: relative;
+		.highlight{
+			width: 410px;
+    float: right;
+    position: absolute;
+    right: 20;
+    top: 50%;
+    transform: translateY(-50%);
+		}
+	}
+	.userassignment-bgwhite {
+		box-shadow: none;
+		background: none;
+		padding: 0px;
 	}
 }

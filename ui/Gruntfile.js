@@ -65,7 +65,7 @@ module.exports = function(grunt) {
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
+        hostname: '0.0.0.0',
         livereload: 35729
       },
       livereload: {
@@ -220,7 +220,19 @@ module.exports = function(grunt) {
           src: '<%= yeoman.app %>/modules/shared/js/shared.constants.js',
           dest: '<%= yeoman.app %>/modules/shared/js/shared.constants.js'
         }]
-      }
+      },
+      removeAngularSanitize: {
+        options: {
+          patterns: [{
+            match: /angular-sanitize/gi,
+            replacement: 'dummy'
+          }]
+        },
+        files: [{
+          src: '<%= yeoman.app %>/index.html',
+          dest: '<%= yeoman.app %>/index.html'
+        }]
+      }      
     },
     // Automatically inject Bower components into the app
     wiredep: {
@@ -516,6 +528,7 @@ module.exports = function(grunt) {
     grunt.task.run([
       'clean:server',
       'replace:local',
+      'replace:removeAngularSanitize',
       'wiredep',
       'concurrent:server',
       'postcss:server',

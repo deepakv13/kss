@@ -36,10 +36,19 @@ AssignmentItem.prototype.reset = function(){
 	this.itemChoices = [];
 }
 
-var ItemChoice = function(desc, isCorrect) {
+AssignmentItem.prototype.copy = function(newAssignmentItem){	
+	this.id = newAssignmentItem.id;
+	this.desc = newAssignmentItem.desc;
+	this.itemType = newAssignmentItem.itemType;
+	this.noOfChoices = newAssignmentItem.noOfChoices;
+	this.weightage = newAssignmentItem.weightage;
+	this.itemChoices = newAssignmentItem.itemChoices;
+}
+
+var ItemChoice = function(desc) {
     this.id=''; 	
 	this.desc = desc;
-	this.isCorrect = isCorrect;	
+	this.isCorrect = 'Incorrect';	
 };
 
 ItemChoice.prototype.toString = function(){
