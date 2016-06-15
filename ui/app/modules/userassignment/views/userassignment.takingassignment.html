@@ -1,7 +1,7 @@
 <div ui-view="header"></div>
 <div class="container" ng-init="initAssignment()">
 	<div class="assignmentPanel-heading">
-		<span>First Assignment</span>
+		<span>{{assignment.desc}}</span>
 		<button class="pull-right submit" ng-click="saveProgress()">Save Progress</button>
 	</div>
 </div>

@@ -23,7 +23,7 @@ loginControllers.controller('LoginCntrl', ['$scope', 'LoginService', '$location'
 				$scope.loginResult = "User Not Registered!";
 			}
 			else {
-				$cookies.user = user;
+				$cookies.putObject('user', user);
 				if (user.role === 'USER') {
 					$location.path('userassignment');		
 				} 

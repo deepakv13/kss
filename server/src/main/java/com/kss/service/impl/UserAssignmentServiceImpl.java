@@ -32,7 +32,7 @@ public class UserAssignmentServiceImpl implements UserAssignmentService{
 	UserAssignmentDao userAssignmentDao;
 	
 	public UserAssignmentCollectionDTO getUserAssignments(String userId) {
-			return getGroupedAssignments(userAssignmentDao.getAllAttendedAssignments(userId), assignmentDao.getAllAssignment()); 
+			return getGroupedAssignments(userAssignmentDao.getAllAttendedAssignments(userId), assignmentDao.getAllPublishedAssignment()); 
 	}
 	
 	public UserAssignment getOrTakeUserAssignment(String userId, Integer assignmentId) {

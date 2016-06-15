@@ -1,8 +1,13 @@
 body {
-    background-color: #E3E3E3;
+    // background-color: #E3E3E3;
     .container {
         width: 1220px;
     }
+    *:focus{
+        outline: none !important;
+        box-shadow: none !important;
+        border: 0px !important;    
+        }
 }
 .assignmentPanel-heading {
     font-size: 28px;

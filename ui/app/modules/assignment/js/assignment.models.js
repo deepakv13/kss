@@ -18,14 +18,14 @@ Assignment.prototype.reset = function(){
 	this.owner = '';
 }
 
-var AssignmentItem = function(desc, itemType, noOfChoices, weightage) {
-	this.id = '';
+var AssignmentItem = function(id, desc, itemType, weightage) {
+	this.id = id;
 	this.desc = desc;
 	this.itemType = itemType;
-	this.noOfChoices = noOfChoices;
 	this.weightage = weightage;
 	this.itemChoices = [];
 }
+
 
 AssignmentItem.prototype.reset = function(){	
 	this.id = '';

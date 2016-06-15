@@ -127,34 +127,36 @@ app.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $url
                                         },
 
         'userAssignmentItemView@user-taking-assignment' : {
-                                              templateUrl: 'modules/userassignment/views/userassignment.takingassignment.item.html'
+                                              templateUrl: 'modules/userassignment/views/userassignment.takingassignment.item.html',
+                                               controller: 'UserTakingAssignmentCntrl'
+
                                             },
       }
   });  
 
 }]);	
 
-// app.run([ '$rootScope', '$state', '$stateParams', '$cookies' , '$location', '$window', 
-//   function ($rootScope, $state, $stateParams, $cookies, $location, $window) {
-//     $rootScope.$on( '$stateChangeStart', 
-//       function(e, toState, toParams, fromState, fromParams) {
-//         var loginStateStr = "login";
-//         var isLogin = toState.name === loginStateStr;
-//         var userInfo = $cookies.user;
+app.run([ '$rootScope', '$state', '$stateParams', '$cookies' , '$location', '$window', 
+  function ($rootScope, $state, $stateParams, $cookies, $location, $window) {
+    $rootScope.$on( '$stateChangeStart', 
+      function(e, toState, toParams, fromState, fromParams) {
+        var loginStateStr = "login";
+        var isLogin = toState.name === loginStateStr;
+        var userInfo = $cookies.getObject('user');
 
-//         if(isLogin) {
-//           $cookies.user = undefined;
-//           return;          
-//         }
+        if(isLogin) {
+          $cookies.remove('user');
+          return;          
+        }
 
-//         if(userInfo === undefined) {
-//             e.preventDefault(); // stop current execution
-//             $state.go(loginStateStr); // go to login
-//         }
-//       }
-//     );
-//   }
-// ]);
+        if(userInfo === undefined) {
+            e.preventDefault(); // stop current execution
+            $state.go(loginStateStr); // go to login
+        }
+      }
+    );
+  }
+]);
 
 app.factory('httpInterceptor' , ['$q', '$location', '$rootScope', '$injector',
   function ($q , $location , $rootScope , $injector) {    

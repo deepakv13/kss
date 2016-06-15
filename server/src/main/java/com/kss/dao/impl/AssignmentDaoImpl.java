@@ -24,8 +24,13 @@ public class AssignmentDaoImpl  {
 	}
 
 	
+	public Collection<Assignment> getAllPublishedAssignment() {
+		TypedQuery<Assignment> typedQuery = em.createQuery("select a from Assignment a where a.status='PUBLISHED'", Assignment.class);
+	    return typedQuery.getResultList();
+	}
+	
 	public Collection<Assignment> getAllAssignment() {
-		TypedQuery<Assignment> typedQuery = em.createQuery("select w from Assignment w", Assignment.class);
+		TypedQuery<Assignment> typedQuery = em.createQuery("select a from Assignment a ", Assignment.class);
 	    return typedQuery.getResultList();
 	}
 	

@@ -148,10 +148,15 @@ public class Assignment {
 				return a1.getId() - a2.getId();
 			}
 		});
+		int maxId= 0;
 		for(int i = 0; i < assignmentItemList.size(); i++){
 			AssignmentItem item = assignmentItemList.get(i);
-			if (item.getId() == null) {
-				item.setId(i+1);
+			if(item.getId()!=null){
+				maxId= item.getId();  //as list is sorted ,can directly do this
+			}else if (item.getId() == null) {
+				maxId = maxId+1;
+				item.setId(maxId);
+				
 				item.setCreatedAt(new Date());
 			}
 			item.setAssignment(this);

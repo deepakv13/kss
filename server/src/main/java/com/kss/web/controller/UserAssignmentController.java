@@ -24,9 +24,9 @@ public class UserAssignmentController {
 	@ResponseBody
 	public String getUserAssignments(@RequestParam String userId, @RequestParam(required=false) Integer assignmentId) throws Exception{
 		if (assignmentId == null) {
-			return JsonUtil.buildJsonFromObject(userAssignmentService.getUserAssignments(userId));
+			return JsonUtil.buildJsonFromObject(userAssignmentService.getUserAssignments(userId.toLowerCase()));
 		}
-		return JsonUtil.buildJsonFromObject(userAssignmentService.getOrTakeUserAssignment(userId, assignmentId));
+		return JsonUtil.buildJsonFromObject(userAssignmentService.getOrTakeUserAssignment(userId.toLowerCase(), assignmentId));
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, produces = "application/json")

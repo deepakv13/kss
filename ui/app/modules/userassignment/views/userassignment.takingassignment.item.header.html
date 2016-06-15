@@ -1,7 +1,8 @@
 <div class="first-assigment">
 	<div class="header">
-		<div class="item" ng-class="{'current': active}" ng-repeat="(key, value) in items">
-			<span>
+	
+     <div  ng-click="jumpToItem(key+1)" ng-class="show(key+1)" class="item" ng-repeat="(key, value) in items">
+			<span >
 				{{key + 1}}
 			</span>
 		</div>

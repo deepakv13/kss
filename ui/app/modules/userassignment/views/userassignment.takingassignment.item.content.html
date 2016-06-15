@@ -5,17 +5,19 @@
 <div class="choices">
 	<div ng-show="(item.itemType === 'Text Input')">
 		
-		<form>
+	<form>
         <div class="form-group">
           <label for="assignmentName">Answer</label>
-          <textarea type="text" class="form-control" placeholder="Enter your answer here..."/>
+          <textarea type="text" ng-model="item.answer" class="form-control" placeholder="Enter your answer here..."/>
         </div>      
       </form>
 	</div>
 	<div ng-show="(item.itemType === 'Single Choice')">
+	<form name="options">
 		<div ng-repeat="(choiceKey, choiceValue) in item.itemChoices">
-			<input type="radio" value="choiceValue.desc" choice-id="choiceValue.id"> {{choiceValue.desc}}
+			<input type="radio" ng-model="item.answer" ng-value="choiceValue.desc" choice-id="choiceValue.id"> {{choiceValue.desc}}
 		</div>
+	</form>	
 	</div>
 	<div ng-show="(item.itemType === 'Multi Choice')">
 		<div ng-repeat="(choiceKey, choiceValue) in item.itemChoices">

@@ -51,24 +51,18 @@ assignmentControllers.controller('AssignmentCntrl', ['$scope', 'AssignmentServic
 		AssignmentService.setNewAssignment(selectedAssignment);
 	}
 
-	// $scope.getTotalWeightage = function() {
-	// 	var totalWeightage = 0;
-	// 	angular.forEach($scope.newAssignment.assignmentItems, function(item, index){
-	// 		totalWeightage += item.weightage;
-	// 	});
-	// 	return totalWeightage;
-	// }
-
 
 }]);
 
 assignmentControllers.controller('AssignmentItemCntrl', ['$scope', 'AssignmentService', 'uiGridConstants', function($scope, AssignmentService, uiGridConstants){
 	$scope.assignmentItem = AssignmentService.getCurrentAssignmentItem();
+    $scope.assignmentItem.item = new AssignmentItem();
+	
 	$scope.itemWeightOptions = [1,2,3,4,5,6,7,8,9,10];
 	
 	//TODO: We should not send/receive the full Assignment object from UI to/from server
 	$scope.saveAssignmentItem = function() {
-		if ($scope.assignmentItem.item.id == "") {
+		if ($scope.assignmentItem.item.id == "" || $scope.assignmentItem.item.id ==undefined) {
 			AssignmentService.getNewAssignment().assignmentItems.push($scope.assignmentItem.item);	
 		}
 		var success = function(assignment) {
@@ -81,6 +75,7 @@ assignmentControllers.controller('AssignmentItemCntrl', ['$scope', 'AssignmentSe
 			alert('problem occurred in saving assignment item');
 		};
 		AssignmentService.saveAssignment(AssignmentService.getNewAssignment(), success, failure);
+		$scope.assignmentItem.item = new AssignmentItem();
 	}
 
 
@@ -124,9 +119,9 @@ assignmentControllers.controller('AssignmentItemListCntrl', ['$scope', '$http','
   $scope.gridOptions = {
   enableFiltering: true,
   enablePaginationControls: false,
-  showGridFooter: true,
-  gridFooterTemplate: "<div class='foot'><span class='foot-total-items'></span><span ng-bind='grid.options.getTotalWeightage()' class='foot-weightage'></span></div>",
-  columnDefs: [
+  // showGridFooter: true,
+  // gridFooterTemplate: "<div class='foot'><span class='foot-total-items'></span><span ng-bind='grid.options.getTotalWeightage()' class='foot-weightage'></span></div>",
+   columnDefs: [
     
       {
         name: 'Description',
@@ -157,9 +152,20 @@ assignmentControllers.controller('AssignmentItemListCntrl', ['$scope', '$http','
 	  	});
   };
 
-  	$scope.gridOptions.getTotalWeightage = function() {
-  		console.log('came here');
+
+  $scope.getTotalWeightage = function() {
+		var totalWeightage = 0;
+		angular.forEach($scope.newAssignment.assignmentItems, function(item, index){
+			totalWeightage += item.weightage;
+		});
+		return totalWeightage;
 	}
+  
+    $scope.getItemCount = function() {
+		return $scope.newAssignment.assignmentItems.length;
+	}
+
+
 
   $scope.gridOptions.data = AssignmentService.getNewAssignment().assignmentItems;
 }])

@@ -40,11 +40,32 @@ userAssignmentDirectives.directive('assignmentHeader', function() {
 		scope : {
 			items : "=",
 			currentItemNum : "@",
+			currentItem : "=",
 			answeredItems : "="
 		},
 		templateUrl: 'modules/userassignment/views/userassignment.takingassignment.item.header.html',
 		link : function (scope) {
 			scope.totalItemsCount = scope.items.length;
+
+            scope.show = function(key) {
+                if(key == scope.currentItemNum){
+                	return 'current';
+                }
+               if(scope.items[key-1].answer!=""){
+                	return 'answered';
+                }
+
+				return '';
+			}
+
+            scope.jumpToItem= function(key){
+              scope.currentItemNum = key;
+              scope.currentItem=scope.items[key];
+
+            }  
+
+
+
 		}
 	};
 });
@@ -58,6 +79,7 @@ userAssignmentDirectives.directive('assignmentItem', function() {
 		},
 		templateUrl: 'modules/userassignment/views/userassignment.takingassignment.item.content.html',
 		link : function (scope) {
+           scope.item.answer='';      
 
 		}
 	};

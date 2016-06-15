@@ -164,10 +164,15 @@ public class AssignmentItem {
 				return a1.getId() - a2.getId();
 			}
 		});
+		int maxId=0;
 		for(int i = 0;i < itemChoiceList.size(); i++){
+			
 			ItemChoice choice = itemChoiceList.get(i);
-			if (choice.getId() == null) {
-				choice.setId(i+1);	
+			if(choice.getId()!=null){
+				maxId= choice.getId();  //as list is sorted ,can directly do this
+			}else if (choice.getId() == null) {
+				maxId++;
+				choice.setId(maxId);	
 			}
 			choice.setAssignmentItem(this);
 		}

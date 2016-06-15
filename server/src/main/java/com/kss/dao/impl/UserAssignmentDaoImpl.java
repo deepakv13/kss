@@ -18,7 +18,7 @@ public class UserAssignmentDaoImpl implements UserAssignmentDao{
 	private EntityManager em;
 	
 	public Collection<UserAssignment> getAllAttendedAssignments(String userId) {
-		TypedQuery<UserAssignment> typedQuery = em.createQuery("select ua from UserAssignment ua where ua.user like '" + userId + "'", UserAssignment.class);
+		TypedQuery<UserAssignment> typedQuery = em.createQuery("select ua from UserAssignment ua where lower(ua.user) = '" + userId.toLowerCase() + "'", UserAssignment.class);
 		return typedQuery.getResultList();
 	}
 	
@@ -27,7 +27,7 @@ public class UserAssignmentDaoImpl implements UserAssignmentDao{
 	}
 	
 	public Collection<UserAssignment> getUserAssignment(String userId, Integer assignmentId) {
-		TypedQuery<UserAssignment> typedQuery = em.createQuery("select ua from UserAssignment ua where ua.user = '" + userId + "' and ua.assignment = '" + assignmentId + "'", UserAssignment.class);
+		TypedQuery<UserAssignment> typedQuery = em.createQuery("select ua from UserAssignment ua where lower(ua.user) = '" + userId.toLowerCase() + "' and ua.assignment = '" + assignmentId + "'", UserAssignment.class);
 		return typedQuery.getResultList();
 	}
 

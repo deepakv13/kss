@@ -1,8 +1,10 @@
 var userAssignmentControllers = angular.module('userAssignmentControllerModule', []);
 
-userAssignmentControllers.controller('UserAssignmentCntrl', ['$scope', '$state', 'UserAssignmentService', function($scope, $state, UserAssignmentService) {
+userAssignmentControllers.controller('UserAssignmentCntrl', ['$scope','$cookies', '$state', 'UserAssignmentService', function($scope, $cookies, $state, UserAssignmentService) {
+	var userObj = $cookies.getObject('user');
+	$scope.userId = userObj !== undefined && userObj !== null ? userObj.id.toUpperCase() : null;
 	
-	$scope.getUserAssignments = function(userId) {
+	$scope.getUserAssignments = function() {
 		var success = function(userAssignments) {
 			$scope.userAssignments = userAssignments;
 		};
@@ -11,14 +13,14 @@ userAssignmentControllers.controller('UserAssignmentCntrl', ['$scope', '$state',
 			alert('problem occurred in getting user assignments');
 		};
 
-		UserAssignmentService.getAssignments(userId, success, failure);
+		UserAssignmentService.getAssignments($scope.userId, success, failure);
 	};
 
 	$scope.setAssignmentInScope = function() {
 		$scope.userAssignment = UserAssignmentService.getUserAssignment();
 	};
 
-	$scope.getOrTakeAssignment = function(userId) {
+	$scope.getOrTakeAssignment = function() {
 		var success = function(userAssignment) {
 			UserAssignmentService.setUserAssignment(userAssignment);
 			$state.go('user-taking-assignment');
@@ -27,7 +29,7 @@ userAssignmentControllers.controller('UserAssignmentCntrl', ['$scope', '$state',
 			alert('problem occurred in attempting the assignment');
 		};
 
-		UserAssignmentService.getOrTakeAssignment(userId, $scope.userAssignment.id, success, failure);
+		UserAssignmentService.getOrTakeAssignment($scope.userId, $scope.userAssignment.id, success, failure);
 	};
 
 
@@ -37,14 +39,18 @@ userAssignmentControllers.controller('UserAssignmentCntrl', ['$scope', '$state',
 
 userAssignmentControllers.controller('UserTakingAssignmentCntrl', ['$scope', '$state', 'UserAssignmentService', function($scope, $state, UserAssignmentService) {
 
+	
 	$scope.initAssignment = function() {
-		$scope.assignment = UserAssignmentService.getUserAssignment().assignment;		
+		$scope.assignment = UserAssignmentService.getUserAssignment().assignment;	
 		$scope.totalAssignmentItemCount = $scope.assignment.assignmentItems.length;
 		$scope.currentAssignmentItem = 0;	
+
+
 	}
 
 	$scope.showCurrentQues = function(key) {
-		if (key === $scope.currentAssignmentItem) return true;
+		if (key === $scope.currentAssignmentItem)
+		 return true;
 		else return false;
 	};
 
