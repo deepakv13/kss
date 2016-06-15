@@ -4,11 +4,15 @@ loginControllers.controller('LoginCntrl', ['$scope', 'LoginService', '$location'
 
 	var init = function() {
 		$scope.userTypes = ['USER', 'ADMIN'];
-		$scope.userType = null;
+		$scope.userType = 'USER';
 		$scope.loginResult = null;
 	};
 
 	init();
+	$scope.dropdownShowMe = false;
+    $scope.loginDropdown = function() {
+        $scope.dropdownShowMe = !$scope.dropdownShowMe;
+    }
 
 	$scope.login = function() {
 		var queryObj = {};
