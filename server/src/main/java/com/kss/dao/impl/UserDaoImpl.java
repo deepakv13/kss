@@ -29,4 +29,8 @@ public class UserDaoImpl implements UserDao{
 		List<User> users = typedQuery.getResultList(); 
 	    return users.size() == 0 ? null : users.get(0);
 	}
+	
+	public User saveUser(User user) {
+		return em.merge(user);
+	}
 }

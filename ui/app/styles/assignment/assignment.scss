@@ -24,15 +24,7 @@
 	}
 }
 
-.current {
-	background-color: #a19ade  !important;
-}
-
-.answered {
-	background-color: green  !important;
-}
-
-
+ 
 
 .details-container {
 	width: 210px;
@@ -60,6 +52,7 @@
 		margin-bottom: 0px;
 		padding: 0px;
 		height: 100%;
+		cursor:pointer;
 
 		.head-custom {
 			height: 26px;
@@ -120,6 +113,12 @@
 	}
 	&.published {
 		border-left: 7px solid #03A9F4;
+	}
+		&.completed {
+		border-left: 7px solid green;
+	}
+		&.in_progress {
+		border-left: 7px solid red;
 	}
 }
 .create-new-report-container {

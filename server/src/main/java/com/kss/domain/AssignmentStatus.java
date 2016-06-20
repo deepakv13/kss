@@ -9,7 +9,7 @@ public enum AssignmentStatus {
 		PUBLISHED ("PUBLISHED"),
 		EXPIRED ("EXPIRED"),
 		IN_PROGRESS ("IN PROGRESS"),
-		COMPLETE ("COMPLETE");
+		COMPLETED ("COMPLETED");
 		
 		String value;
 		private AssignmentStatus(String value) {

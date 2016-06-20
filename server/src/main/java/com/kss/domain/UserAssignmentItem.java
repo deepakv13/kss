@@ -68,9 +68,7 @@ public class UserAssignmentItem {
 	public UserAssignmentItem() {
 	}
 
-	public UserAssignmentItem(User user,
-			AssignmentItem assignmentItem, String userInput, String score,
-			String comments, String status) {
+	public UserAssignmentItem(User user, AssignmentItem assignmentItem, String userInput, String score, String comments, String status) {
 		this.user = user;
 		this.assignmentItem = assignmentItem;
 		this.userInput = userInput;

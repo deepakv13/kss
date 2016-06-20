@@ -14,7 +14,9 @@ assignmentDirectives.directive('availableAssignmentBox', ['AssignmentService', f
 			assignment : "=",
 		},
 		link : function(scope) {
+			scope.assignment.formattedDate = scope.assignment.modifiedAt != null ? moment(scope.assignment.modifiedAt).format('MMMM Do YYYY') : moment().format('MMMM Do YYYY');
 			scope.setAssignment = function() {
+				
 				AssignmentService.setNewAssignment(scope.assignment);
 			};
 		},

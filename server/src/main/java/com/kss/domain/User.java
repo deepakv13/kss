@@ -46,14 +46,10 @@ public class User {
 	@Column(name = "STATUS")
 	private String status;
 	
-//	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-//	private Set<UserAssignment> userAssignment;
-	
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
 	private Set<UserAssignment> userAssignments = new HashSet<UserAssignment>(0);
     
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
     private Set<UserAssignmentItem> userAssignmentItems = new HashSet<UserAssignmentItem>(0);
 	
 	public User() {
@@ -121,6 +117,11 @@ public class User {
 		}
 		this.userAssignments = userAssignments;
 	}
+	
+	public void addUserAssignment(UserAssignment userAssignment) {
+		userAssignment.setUser(this);
+		this.userAssignments.add(userAssignment);
+	}
 
 	public Set<UserAssignmentItem> getUserAssignmentItems() {
 		return userAssignmentItems;
@@ -131,6 +132,11 @@ public class User {
 			userAssignmentItem.setUser(this);
 		}
 		this.userAssignmentItems = userAssignmentItems;
+	}
+	
+	public void addUserAssignmentItem(UserAssignmentItem userAssignmentItem) {
+		userAssignmentItem.setUser(this);
+		this.userAssignmentItems.add(userAssignmentItem);
 	}
 	
 

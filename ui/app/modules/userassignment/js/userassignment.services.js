@@ -22,12 +22,17 @@ userAssignmentServices.service('UserAssignmentService', ['$resource', 'APP_SERVI
 		};
 
 
-		this.getOrTakeAssignment= function(userId, assignmentId, success, failure) {
+		this.getOrTakeAssignment = function(userId, assignmentId, success, failure) {
 			var userAssignmentUrl = userAssignmentBaseUrl// + "/:userId/:assignmentId";
 			var userAssignments = $resource(userAssignmentUrl, 
 											{userId: '@userId', assignmentId: '@assignmentId'}, 
 											{query: {isArray: false}}
 											);
 			userAssignments.query({userId : userId, assignmentId : assignmentId}, success, failure);
+		};
+
+		this.saveOrSubmitAssignmentProgress = function(userAssignmentDTO, isSubmit, success, failure) {
+			var userAssignments = $resource(userAssignmentBaseUrl);
+			userAssignments.save({userAssignmentDTOStr : userAssignmentDTO, isSubmit : isSubmit}, success, failure);	
 		};
 }]);

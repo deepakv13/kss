@@ -44,6 +44,7 @@
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="bower_components/angular-underscore-module/angular-underscore-module.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
     <script src="bower_components/angular-daterangepicker/js/angular-daterangepicker.js"></script>
     <script src="bower_components/highcharts/highcharts.js"></script>
@@ -98,6 +99,9 @@
   </head>
   <body>
     <div class="container-fluid" style="padding: 0px;">
+    <div id="loaderDiv" loader>
+        <img src="images/spin.svg" class="ajax-loader"/>
+    </div>
       <ui-view></ui-view>
     </div>
   </body>

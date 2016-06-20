@@ -33,13 +33,14 @@ assignmentControllers.controller('AssignmentCntrl', ['$scope', 'AssignmentServic
 	$scope.publishAssignment = function() {
 		var success = function(assignment) {
 			$scope.newAssignment = assignment;
+			alert('Assignment successfully publieshed!!');
 		};
 
 		var failure = function() {
 			alert('problem occurred in publishing the assignment');
 		};
 
-		AssignmentService.publishAssignment($scope.newAssignment, success, failure);
+		AssignmentService.publishAssignment(AssignmentService.getNewAssignment(), success, failure);
 	}
 
 	$scope.getNewAssignment = function() {
@@ -69,13 +70,14 @@ assignmentControllers.controller('AssignmentItemCntrl', ['$scope', 'AssignmentSe
 			AssignmentService.setNewAssignment(assignment);
 			var newAssignmentItem = new AssignmentItem();
 			AssignmentService.setCurrentAssignmentItem(newAssignmentItem);
+			console.log(JSON.stringify(AssignmentService.getNewAssignment()));
 		};
 
 		var failure = function() {
 			alert('problem occurred in saving assignment item');
 		};
 		AssignmentService.saveAssignment(AssignmentService.getNewAssignment(), success, failure);
-		$scope.assignmentItem.item = new AssignmentItem();
+		//$scope.assignmentItem.item = new AssignmentItem();
 	}
 
 
@@ -119,8 +121,6 @@ assignmentControllers.controller('AssignmentItemListCntrl', ['$scope', '$http','
   $scope.gridOptions = {
   enableFiltering: true,
   enablePaginationControls: false,
-  // showGridFooter: true,
-  // gridFooterTemplate: "<div class='foot'><span class='foot-total-items'></span><span ng-bind='grid.options.getTotalWeightage()' class='foot-weightage'></span></div>",
    columnDefs: [
     
       {
@@ -134,6 +134,15 @@ assignmentControllers.controller('AssignmentItemListCntrl', ['$scope', '$http','
         field: 'weightage',
         width:'100'
       }
+     /*  {
+        name: 'id',
+        field: 'id',
+            sort: {
+      			direction: uiGridConstants.ASC,
+      			priority: 0
+ 		   },
+        
+      }*/
     ]
   };
 
@@ -155,17 +164,18 @@ assignmentControllers.controller('AssignmentItemListCntrl', ['$scope', '$http','
 
   $scope.getTotalWeightage = function() {
 		var totalWeightage = 0;
-		angular.forEach($scope.newAssignment.assignmentItems, function(item, index){
+		angular.forEach(AssignmentService.getNewAssignmentItems(), function(item, index){
 			totalWeightage += item.weightage;
 		});
 		return totalWeightage;
 	}
   
     $scope.getItemCount = function() {
-		return $scope.newAssignment.assignmentItems.length;
+		return AssignmentService.getNewAssignmentItems().length;
 	}
 
 
 
-  $scope.gridOptions.data = AssignmentService.getNewAssignment().assignmentItems;
+
+  $scope.gridOptions.data = AssignmentService.getNewAssignmentItems();
 }])

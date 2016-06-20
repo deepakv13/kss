@@ -306,6 +306,27 @@ $form-label-font-color: #47799a;
                                 cursor: default;
                                 //vertical-align: middle;
                                 //display: table-cell;
+                                h1{
+                                margin:0px;
+                                font-size:18px;
+                                }
+                                h2{
+                                 margin:0px;
+                                font-size:18px;
+                                }
+                                h3{
+                                 margin:0px;
+                                font-size:18px;
+                                }
+                                h4{
+                                 margin:0px;
+                                font-size:18px;
+                                }
+                                h5{
+                                 margin:0px;
+                                font-size:18px;
+                                }
+
 
                                 .ui-grid-selection-row-header-buttons {
                                     &.ui-grid-all-selected {
@@ -483,7 +504,7 @@ $form-label-font-color: #47799a;
         }
         .foot {
                 border-top: 1px solid #E3E3E3;
-                margin-top: 52px;
+                margin-top: 48px;
                 padding: 10px;
 
                 .foot-total-items {

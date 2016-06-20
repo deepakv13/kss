@@ -48,7 +48,7 @@ public class Assignment {
 	@Column(name = "OWNER")
 	private String owner;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "MODIFIED_AT")
 	private Date modifiedAt;
 	

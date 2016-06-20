@@ -5,8 +5,10 @@ userAssignmentDirectives.directive('userassignmentAssignmentBox', ['UserAssignme
 		restrict: 'E',
 		scope : {
 			userassignment : "=",
+			showCompletedNotification : "&"
 		},
 		link : function(scope) {
+			scope.userassignment.formattedDate = scope.userassignment.modifiedAt != null ? moment(scope.userassignment.modifiedAt).format('MMMM Do YYYY') : moment().format('MMMM Do YYYY');
 			 var getAssignment = function(userId, assignmentId) {
 				var success = function(userAssignment) {
 					UserAssignmentService.setUserAssignment(userAssignment);
@@ -23,9 +25,24 @@ userAssignmentDirectives.directive('userassignmentAssignmentBox', ['UserAssignme
 				if (scope.userassignment.status.toUpperCase() === "IN_PROGRESS") {
 					getAssignment(scope.userassignment.userId, scope.userassignment.id);
 				}
+				else if (scope.userassignment.status.toUpperCase() === "COMPLETED") {
+					scope.showCompletedNotification();
+				}
 				else {
 					UserAssignmentService.setUserAssignment(scope.userassignment);
 					$state.go("user-assignment-detail");	
+				}
+			};
+
+			scope.getUserAssignmentStatusClass = function() {
+				if (scope.userassignment.status.toUpperCase() === "IN_PROGRESS") {
+					return "details-container in_progress";
+				}
+				else if (scope.userassignment.status.toUpperCase() === "PUBLISHED") {
+					return "details-container published";
+				}
+				else {
+					return "details-container completed";
 				}
 			};
 		},		
@@ -39,32 +56,30 @@ userAssignmentDirectives.directive('assignmentHeader', function() {
 		restrict : 'E',
 		scope : {
 			items : "=",
-			currentItemNum : "@",
-			currentItem : "=",
-			answeredItems : "="
+			itemTracker : "=",			
+			// answeredItems : "="
 		},
 		templateUrl: 'modules/userassignment/views/userassignment.takingassignment.item.header.html',
 		link : function (scope) {
 			scope.totalItemsCount = scope.items.length;
 
             scope.show = function(key) {
-                if(key == scope.currentItemNum){
+                if(key == scope.itemTracker.currentAssignmentItem){
                 	return 'current';
                 }
-               if(scope.items[key-1].answer!=""){
-                	return 'answered';
-                }
+                 for (var property in scope.items[key].answers) {
+                       if(scope.items[key].answers[property] != undefined && scope.items[key].answers[property] != ""){
+                          return 'answered';
+                       	
+                       }
+                     }
 
 				return '';
-			}
+			};
 
-            scope.jumpToItem= function(key){
-              scope.currentItemNum = key;
-              scope.currentItem=scope.items[key];
-
-            }  
-
-
+			scope.jumpToItem = function(key) {
+				scope.itemTracker.currentAssignmentItem = key;
+			};
 
 		}
 	};
@@ -79,8 +94,13 @@ userAssignmentDirectives.directive('assignmentItem', function() {
 		},
 		templateUrl: 'modules/userassignment/views/userassignment.takingassignment.item.content.html',
 		link : function (scope) {
-           scope.item.answer='';      
-
+           scope.isChecked = function(choiceValue) {
+	           	var answers = scope.item.answers;
+	           	for (var key in answers) {
+	           		if (answers[key] == choiceValue) return true;
+	           	}
+	           	return false;
+           };           
 		}
 	};
 });
@@ -93,8 +113,8 @@ userAssignmentDirectives.directive('assignmentFooter', function() {
 			enablePrev : "=",
 			enableNext : "=",
 			enableSubmit : "=",
-			showNextAssignmentItem : "&",
-			showPrevAssignmentItem : "&",
+			showAndSetNextAssignmentItem : "&",
+			showAndSetPrevAssignmentItem : "&",
 			submitAssignment : "&"
 		},
 		templateUrl: 'modules/userassignment/views/userassignment.takingassignment.item.footer.html',

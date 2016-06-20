@@ -17,6 +17,8 @@
 }
 .login-dropdown {
 	float: right;
+	outline: 0;
+    border: 0;
 	&:focus{
 		outline: none;
 		box-shadow: none;
@@ -25,6 +27,8 @@
 
 	.dropdown-toggle {
 		background-color: transparent !important;
+		outline: 0;
+    border: 0;
 		
 		&:focus{
 		outline: none;

@@ -45,10 +45,6 @@ public class UserAssignment {
 		}
 	}
 	
-/*	@Id
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "USER_ID")
-	private User user;*/
 	
 	@Id
     @ManyToOne(fetch = FetchType.EAGER)
@@ -56,17 +52,12 @@ public class UserAssignment {
 	@JsonIgnore
 	private User user;
 	
-/*	@Id
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ASSIGNMENT_ID")
-	private Assignment assignment;*/
-	
 	@Id
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ASSIGNMENT_ID", nullable = false, insertable = false, updatable = false)
 	private Assignment assignment;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "MODIFIED_AT")
 	private Date modifiedAt;
 	
@@ -80,9 +71,6 @@ public class UserAssignment {
 	@Enumerated(EnumType.STRING)
 	private AssignmentStatus status;
 	
-//	@OneToMany(mappedBy = "userAssignment", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-//	private Set<UserAssignmentItem> userAssignmentItems;
-	
 	public UserAssignment() {
 	}
 
@@ -95,7 +83,6 @@ public class UserAssignment {
 		this.score = score;
 		this.comments = comments;
 		this.status = status;
-//		this.userAssignmentItems = userAssignmentItems;
 	}
 	
 	public UserAssignment(User user, Assignment assignment, AssignmentStatus status) {
@@ -113,15 +100,6 @@ public class UserAssignment {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-/*	public Set<UserAssignmentItem> getUserAssignmentItems() {
-		return userAssignmentItems;
-		return null;
-	}*/
-
-/*	public void setUserAssignmentItems(Set<UserAssignmentItem> userAssignmentItems) {
-		this.userAssignmentItems = userAssignmentItems;
-	}*/
 
 	public Assignment getAssignment() {
 		return assignment;

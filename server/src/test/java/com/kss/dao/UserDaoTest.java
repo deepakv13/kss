@@ -18,7 +18,7 @@ public class UserDaoTest {
 	
 	@Test
 	public void getUserInfoTest() {
-		User user = userDao.getUserInfo("AM35181");
+		User user = userDao.getUser("AM35181");
 		System.out.println(user);
 	}
 }

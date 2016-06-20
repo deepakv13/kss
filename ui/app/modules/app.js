@@ -158,15 +158,33 @@ app.run([ '$rootScope', '$state', '$stateParams', '$cookies' , '$location', '$wi
   }
 ]);
 
+app.directive("loader", function ($rootScope, $timeout) {
+  return function ($scope, element, attrs) {
+      $scope.$on("showLoadingSpinner", function () {
+          return element.show();
+      });
+      return $scope.$on("hideLoadingSpinner", function () {
+          $timeout(function() {
+              return element.hide();
+          }, 1000);          
+      });
+  };
+})
+
 app.factory('httpInterceptor' , ['$q', '$location', '$rootScope', '$injector',
   function ($q , $location , $rootScope , $injector) {    
-  
+  var numLoadings = 0;
   var httpInterceptor = {
     request : function (config) {
+      numLoadings++;      
+      $rootScope.$broadcast("showLoadingSpinner");
       return config;
     },
 
     responseError : function (rejection) {      
+      if (!(--numLoadings)) {              
+        $rootScope.$broadcast("hideLoadingSpinner");
+      }
       switch(rejection.status) {                  
         default : alert('Server is facing some issue. Please get back later!'); break;
       }
@@ -179,19 +197,15 @@ app.factory('httpInterceptor' , ['$q', '$location', '$rootScope', '$injector',
       var path = requestUrlSplit[requestUrlSplit.length - 1];
       var escapedFileExtensions = ['.html' , '.css' , '.js'];
 
-      return response;      
-      // if (!new RegExp(escapedFileExtensions.join("|")).test(path)) {  // excludes html, css and js pages
-      //   var loginStateStr = "login";
-      //   var userInfo = $cookies.user;
-
-      //   if(userInfo === undefined) {            
-      //     $state.go("login"); // go to login
-      //   }
-      // }
-      // else {         
-      //   return response;
-      // }        
+      if ((--numLoadings) === 0) {                
+        $rootScope.$broadcast("hideLoadingSpinner");
+      }
+      return response;                
     }
   };
   return httpInterceptor;    
+}]);
+
+app.config(['$httpProvider', function($httpProvider) {  
+    $httpProvider.interceptors.push('httpInterceptor');
 }]);

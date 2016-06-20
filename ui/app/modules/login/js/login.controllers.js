@@ -21,6 +21,7 @@ loginControllers.controller('LoginCntrl', ['$scope', 'LoginService', '$location'
 		var success = function(user) {
 			if (user.id === null) {
 				$scope.loginResult = "User Not Registered!";
+
 			}
 			else {
 				$cookies.putObject('user', user);
@@ -31,12 +32,16 @@ loginControllers.controller('LoginCntrl', ['$scope', 'LoginService', '$location'
 					$location.path('admin');		
 				} 
 			}
-		};		
+		};
+
+		var failure = function(user) {
+			$scope.loginResult = "User Not Registered!";
+		};
 
 		if ($scope.userType === 'ADMIN') {
 			queryObj['password'] = $scope.password;
 		}
 		
-		LoginService.login(queryObj, success);
+		LoginService.login(queryObj, success, failure);
 	};
 }]);

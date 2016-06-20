@@ -24,14 +24,22 @@
 					a {
 						background-color: #2f363d;
 						color: #ffffff;
-						padding: 3px 12px;
+						padding: 6px 12px;
 						font-size: 12px;
+						.icon-home{
+						vertical-align:middle;
+										height: 13px;
+						}
+						&.home_icon{
+						height:32px;
+						padding-top: 10px;
+						}
 					}
 					&.active {
 					}
 				}
 				&.navbar-right {
-					min-height: 25px;
+					
 					margin-right: 0px;
 					.dropdown {
 						a {

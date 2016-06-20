@@ -26,9 +26,12 @@ public class UserAssignmentDaoImpl implements UserAssignmentDao{
 		em.merge(userAssignment);
 	}
 	
-	public Collection<UserAssignment> getUserAssignment(String userId, Integer assignmentId) {
+	public UserAssignment getUserAssignment(String userId, Integer assignmentId) {
 		TypedQuery<UserAssignment> typedQuery = em.createQuery("select ua from UserAssignment ua where lower(ua.user) = '" + userId.toLowerCase() + "' and ua.assignment = '" + assignmentId + "'", UserAssignment.class);
-		return typedQuery.getResultList();
+		if (typedQuery.getResultList().size() > 0) {
+			return typedQuery.getResultList().get(0);
+		}
+		return null;
 	}
 
 	public UserAssignment saveUserAssignment(UserAssignment userAssignment) {

@@ -31,4 +31,6 @@ public class UserAssignmentCollectionDTO {
 	public void setAvailable(List<AssignmentDTO> available) {
 		this.available = available;
 	}
+	
+	
 }

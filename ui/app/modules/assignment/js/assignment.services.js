@@ -3,6 +3,7 @@ var assignmentServices = angular.module('assignmentServiceModule', ['ngResource'
 assignmentServices.service('AssignmentService', ['$resource', 'APP_SERVICES_URL', function($resource, APP_SERVICES_URL) {
 		var assignmentUrl = APP_SERVICES_URL.ASSIGNMENT;
 		var newAssignment;
+		var newAssignmentItems = [];
 
 		var currentAssignmentItem = new Object();
 		currentAssignmentItem.item = new AssignmentItem();
@@ -19,10 +20,23 @@ assignmentServices.service('AssignmentService', ['$resource', 'APP_SERVICES_URL'
 
 		this.setNewAssignment = function(assignment) {
 			newAssignment = assignment;
+
+			while (newAssignmentItems.length > 0) {
+                newAssignmentItems.pop();
+            } 
+            for(var index in assignment.assignmentItems){
+            	newAssignmentItems.push(assignment.assignmentItems[index]);
+            }
+
+			
 		};
 
 		this.getNewAssignment = function() {
 			return newAssignment;
+		};
+
+		this.getNewAssignmentItems = function() {
+			return newAssignmentItems;
 		};
 
 		this.resetNewAssignment = function() {

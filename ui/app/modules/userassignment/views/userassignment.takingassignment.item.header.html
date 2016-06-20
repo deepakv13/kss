@@ -1,13 +1,13 @@
 <div class="first-assigment">
 	<div class="header">
 	
-     <div  ng-click="jumpToItem(key+1)" ng-class="show(key+1)" class="item" ng-repeat="(key, value) in items">
+     <div  ng-click="jumpToItem(key)" ng-class="show(key)" class="item" ng-repeat="(key, value) in items">
 			<span >
 				{{key + 1}}
 			</span>
 		</div>
-		<p>
+<!-- 		<p>
 			Total No of Questions :{{currentItemNum}}/{{totalItemsCount}}
-		</p>
+		</p> -->
 	</div>
 </div>
